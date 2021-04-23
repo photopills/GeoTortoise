@@ -51,9 +51,12 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 
+<<<<<<< HEAD
 # vs code
 .vscode/
 
+=======
+>>>>>>> Initial commit
 # Translations
 *.mo
 *.pot

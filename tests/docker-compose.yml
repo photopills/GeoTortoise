@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  geotortoise-test-db:
+    image: kartoza/postgis:13.0
+    environment:
+      - POSTGRES_DRIVER=postgres
+      - POSTGRES_HOST=geo-db
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=geo
+      - POSTGRES_PASSWORD=geo
+      - POSTGRES_DB=geo
+    ports:
+      - 5431:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:

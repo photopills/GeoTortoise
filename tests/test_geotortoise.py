@@ -1,6 +1,6 @@
+from geotortoise.functions import ST_Contains, ST_Distance, ST_Within
 from shapely.geometry import Point, Polygon
 
-from geotortoise.functions import ST_Contains, ST_Distance, ST_Within
 from tests.models import Place, Region
 
 from .conftest import db_handler

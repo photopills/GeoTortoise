@@ -1,7 +1,6 @@
+from geotortoise import fields as geo_fields
 from tortoise import fields
 from tortoise.models import Model
-
-from geotortoise import fields as geo_fields
 
 
 class Region(Model):
@@ -14,6 +13,9 @@ class Place(Model):
     point = geo_fields.PointField()
 
 
+# ====================
+# Test Config
+# ====================
 TEST_MODELS = ["tests.models", "aerich.models"]
 
 DB_HOST = "172.18.0.2"

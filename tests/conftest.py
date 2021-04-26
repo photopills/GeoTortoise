@@ -1,10 +1,10 @@
-import asyncio
+from tortoise import Tortoise
+import sys
+import logging
 
-import pytest
-from tortoise import Tortoise, run_async
-from tortoise.contrib.test import finalizer, initializer
+from .models import DB_URL, TEST_MODELS
 
-from .models import DB_URL, TEST_MODELS, Place, Region
+LOGGING = False
 
 
 def db_handler(func_test):
@@ -17,8 +17,28 @@ def db_handler(func_test):
             # call the test function
             await func_test()
         finally:
-            await Place.all().delete()
-            await Region.all().delete()
+            for model in Tortoise.apps["models"].values():
+                await model.all().delete()
             await Tortoise.close_connections()
 
     return _setup_db
+
+
+if LOGGING:
+    fmt = logging.Formatter(
+        fmt="%(asctime)s - %(name)s:%(lineno)d - %(levelname)s - %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    )
+
+    sh = logging.StreamHandler(sys.stdout)
+    sh.setLevel(logging.DEBUG)
+    sh.setFormatter(fmt)
+
+    # will print debug sql
+    logger_db_client = logging.getLogger("db_client")
+    logger_db_client.setLevel(logging.DEBUG)
+    logger_db_client.addHandler(sh)
+
+    logger_tortoise = logging.getLogger("tortoise")
+    logger_tortoise.setLevel(logging.DEBUG)
+    logger_tortoise.addHandler(sh)

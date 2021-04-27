@@ -22,7 +22,7 @@ class FunctionCriterion(Criterion):
     def get_sql(self, with_alias=False, **kwargs):
         sql = self.function.get_function_sql()
         if with_alias and self.alias:
-            return '{sql} "{alias}"'.format(sql=sql, alias=self.alias)
+            return f'{sql} "{self.alias}"'
         return sql
 
 
@@ -47,7 +47,7 @@ class Function(PyPikaFunction, Q):
             *[
                 Parameter(placeholder() if callable(placeholder) else placeholder)
                 for _ in self.args
-            ]
+            ],
         )
 
     @property

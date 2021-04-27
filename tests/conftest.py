@@ -1,6 +1,7 @@
-from tortoise import Tortoise
-import sys
 import logging
+import sys
+
+from tortoise import Tortoise
 
 from .models import DB_URL, TEST_MODELS
 

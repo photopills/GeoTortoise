@@ -32,8 +32,8 @@ class GeomFromText(Function):
 class AsText(Function):
     """PostGIS function to extract geometry as WKT"""
 
-    def __init__(self, field: Field):
-        super().__init__("ST_AsText", field)
+    def __init__(self, field: Field, alias):
+        super().__init__("ST_AsText", field, alias)
 
 
 # ====================

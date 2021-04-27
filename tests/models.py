@@ -1,6 +1,7 @@
-from geotortoise import fields as geo_fields
 from tortoise import fields
 from tortoise.models import Model
+
+from geotortoise import fields as geo_fields
 
 
 class Region(Model):

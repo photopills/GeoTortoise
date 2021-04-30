@@ -133,9 +133,16 @@ class ST_Contains(ComparesGeometryLike):
 
 
 class ST_Distance(ComparesGeometryLike):
-    """Calculates the distance between two GeometryLikes."""
+    """Calculates the minimum 2D Cartesian (planar) distance between two GeometryLikes,
+    in projected units (spatial ref units)."""
 
     name = "ST_Distance"
+
+
+class ST_DistanceSphere(ComparesGeometryLike):
+    """Calculates minimum distance in meters between two lon/lat GeometryLikes."""
+
+    name = "ST_DistanceSphere"
 
 
 class ST_Intersection(ComparesGeometryLike):

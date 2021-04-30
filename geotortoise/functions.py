@@ -3,7 +3,6 @@ from typing import Optional, Union
 
 from pypika import Field as PyPikaField
 from shapely.geometry.base import BaseGeometry
-from shapely.wkt import dumps
 from tortoise.fields import Field
 
 from ._base_functions import Function
@@ -45,7 +44,7 @@ GeometryLike = Union[BaseGeometry, "GeomFromText", Field, str]
 
 def convert_to_db_value(target: GeometryLike, srid=None):
     if isinstance(target, BaseGeometry):
-        return GeomFromText(dumps(target), srid)
+        return GeomFromText(target.wkt, srid)
     if isinstance(target, str):
         return GeomFromText(target, srid)
         # todo validate wkb

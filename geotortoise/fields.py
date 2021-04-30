@@ -68,7 +68,10 @@ class GeometryField(Field):
             return value
 
         if not isinstance(value, BaseGeometry):
-            raise FieldError("The value to be saved must be a Shapely geometry.")
+            try:
+                value = shapely.wkt.loads(value)
+            except WKTReadingError:    
+                raise FieldError("The value to be saved must be a Shapely geometry or a WKT geometry.")
 
         return shapely.wkb.dumps(value, hex=True, srid=self.srid)
 

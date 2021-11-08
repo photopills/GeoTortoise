@@ -33,8 +33,16 @@ class Function(PyPikaFunction, Q):
         Q.__init__(self)
 
     def resolve(self, model, annotations, custom_filters, *args):
-        # TODO: Get more information about *args param
-        return QueryModifier(where_criterion=FunctionCriterion(self))
+        # TODO: Remove hardcoded join. 
+        # Possible solution: tortoise/functions.py
+        # NOTE: Current implementation to allow filter using annotated geo query field
+        # example:
+        # GeoModel.all()
+        # .annotate(
+        #     distance=ST_DistanceSphere(col["geom"], instance.geom, g1_srid=4326, g2_srid=4326),
+        # )
+        # .filter(distance__lte=100)
+        return {"join": [], "field": self}
 
     def parameterize(self, placeholder: Union[str, Callable]):
         """

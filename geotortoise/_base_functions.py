@@ -4,10 +4,21 @@ Implements arbitrary SQL functions using getattr.
 Inspired by the SQLAlchemy function implementation.
 """
 from typing import Callable, Union
-
 from pypika.functions import Function as PyPikaFunction
 from pypika.terms import Criterion, Field, Parameter
 from tortoise.query_utils import Q, QueryModifier
+
+
+class FunctionReturn:
+    def __init__(self, where_criterion, having_criterion, joins, field) -> None:
+        self.where_criterion = where_criterion
+        self.having_criterion = having_criterion
+        self.joins = joins
+        self.field = field
+
+    def __getitem__(self, k):
+        """Allow attribute access with dot operator or with subscription"""
+        return self.__getattribute__(k)
 
 
 class FunctionCriterion(Criterion):
@@ -33,16 +44,22 @@ class Function(PyPikaFunction, Q):
         Q.__init__(self)
 
     def resolve(self, model, annotations, custom_filters, *args):
-        # TODO: Remove hardcoded join. 
+        # TODO: Remove hardcoded join.
         # Possible solution: tortoise/functions.py
-        # NOTE: Current implementation to allow filter using annotated geo query field
+        # NOTE: Temporary implementation to allow filter using annotated geo query field
         # example:
         # GeoModel.all()
         # .annotate(
         #     distance=ST_DistanceSphere(col["geom"], instance.geom, g1_srid=4326, g2_srid=4326),
         # )
-        # .filter(distance__lte=100)
-        return {"join": [], "field": self}
+        # .filter(distance__lte=100)  <---
+        query_mod = QueryModifier(where_criterion=FunctionCriterion(self))
+        return FunctionReturn(
+            where_criterion=query_mod.where_criterion,
+            having_criterion=query_mod.having_criterion,
+            joins=query_mod.joins,
+            field=self,
+        )
 
     def parameterize(self, placeholder: Union[str, Callable]):
         """

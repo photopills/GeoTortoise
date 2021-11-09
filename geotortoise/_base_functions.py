@@ -43,7 +43,7 @@ class Function(PyPikaFunction, Q):
         PyPikaFunction.__init__(self, name, *args, **kwargs)
         Q.__init__(self)
 
-    def resolve(self, model, annotations, custom_filters, *args):
+    def resolve(self, model, annotations, custom_filters=None, *args):
         # TODO: Remove hardcoded join.
         # Possible solution: tortoise/functions.py
         # NOTE: Temporary implementation to allow filter using annotated geo query field

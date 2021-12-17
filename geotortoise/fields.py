@@ -9,6 +9,8 @@ from tortoise import ConfigurationError, Model
 from tortoise.exceptions import FieldError, OperationalError
 from tortoise.fields import Field
 
+from geotortoise.utils import validate_coordinates
+
 from .functions import AsText
 
 
@@ -72,7 +74,7 @@ class GeometryField(Field):
                 value = shapely.wkt.loads(value)
             except WKTReadingError:    
                 raise FieldError("The value to be saved must be a Shapely geometry or a WKT geometry.")
-
+        value = validate_coordinates(value)
         return shapely.wkb.dumps(value, hex=True, srid=self.srid)
 
     def to_python_value(self, value: Any) -> BaseGeometry:

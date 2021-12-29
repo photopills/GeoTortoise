@@ -1,6 +1,6 @@
 [[package]]
 name = "aerich"
-version = "0.5.7"
+version = "0.6.1"
 description = "A database migrations tool for Tortoise ORM."
 category = "dev"
 optional = false
@@ -10,11 +10,11 @@ python-versions = ">=3.7,<4.0"
 click = "*"
 ddlparse = "*"
 dictdiffer = "*"
-pydantic = "*"
-tortoise-orm = "*"
+tomlkit = "*"
+tortoise-orm = ">=0.17.7,<0.18.0"
 
 [package.extras]
-aiomysql = ["aiomysql"]
+asyncmy = ["asyncmy"]
 asyncpg = ["asyncpg"]
 
 [[package]]
@@ -428,21 +428,6 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
-name = "pydantic"
-version = "1.8.2"
-description = "Data validation and settings management using python 3.6 type hinting"
-category = "dev"
-optional = false
-python-versions = ">=3.6.1"
-
-[package.dependencies]
-typing-extensions = ">=3.7.4.3"
-
-[package.extras]
-dotenv = ["python-dotenv (>=0.10.4)"]
-email = ["email-validator (>=1.0.3)"]
-
-[[package]]
 name = "pyflakes"
 version = "2.3.1"
 description = "passive checker of Python programs"
@@ -558,8 +543,16 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
+name = "tomlkit"
+version = "0.8.0"
+description = "Style preserving TOML library"
+category = "dev"
+optional = false
+python-versions = ">=3.6,<4.0"
+
+[[package]]
 name = "tortoise-orm"
-version = "0.18.0"
+version = "0.17.8"
 description = "Easy async ORM for python, built with relations in mind"
 category = "main"
 optional = false
@@ -568,14 +561,14 @@ python-versions = ">=3.7,<4.0"
 [package.dependencies]
 aiosqlite = ">=0.16.0,<0.18.0"
 iso8601 = ">=0.1.13,<0.2.0"
-pypika-tortoise = ">=0.1.2,<0.2.0"
+pypika-tortoise = ">=0.1.1,<0.2.0"
 pytz = "*"
 
 [package.extras]
 aiomysql = ["aiomysql"]
 asyncmy = ["asyncmy"]
 asyncpg = ["asyncpg"]
-accel = ["ciso8601 (>=2.1.2,<3.0.0)", "orjson", "uvloop (>=0.16.0,<0.17.0)"]
+accel = ["ciso8601 (>=2.1.2,<3.0.0)", "python-rapidjson", "uvloop (>=0.14.0,<0.15.0)"]
 
 [[package]]
 name = "typed-ast"
@@ -648,12 +641,12 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "a061f5df72a80224bb7d75395311ab6d20044542be185611e8fda4a68b0cdf18"
+content-hash = "cf64563e6f7fa4eccce2baa80aac2b254e3783822f0e06b22567e3b81fb01009"
 
 [metadata.files]
 aerich = [
-    {file = "aerich-0.5.7-py3-none-any.whl", hash = "sha256:0684eb3d631c7c6e14caf2b2c3b9dad1c15ce8ade5771773c015a302f54ff4f6"},
-    {file = "aerich-0.5.7.tar.gz", hash = "sha256:f9ef8796f7a13ba9965eda0aa6840033bbd42b2e4e52c24d8f0dbdb85e4a5187"},
+    {file = "aerich-0.6.1-py3-none-any.whl", hash = "sha256:bf8c79079b3c11921b313173658e68295f000fd8a8c48b2ead549a1111a1cbd4"},
+    {file = "aerich-0.6.1.tar.gz", hash = "sha256:90d1bfce48167e7acf6b4f5e94cb83fa9c2d39e13d63dfa94fae56cd62e97ba5"},
 ]
 aiohttp = [
     {file = "aiohttp-3.8.1-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:1ed0b6477896559f17b9eaeb6d38e07f7f9ffe40b9f0f9627ae8b9926ae260a8"},
@@ -1022,30 +1015,6 @@ pycodestyle = [
     {file = "pycodestyle-2.7.0-py2.py3-none-any.whl", hash = "sha256:514f76d918fcc0b55c6680472f0a37970994e07bbb80725808c17089be302068"},
     {file = "pycodestyle-2.7.0.tar.gz", hash = "sha256:c389c1d06bf7904078ca03399a4816f974a1d590090fecea0c63ec26ebaf1cef"},
 ]
-pydantic = [
-    {file = "pydantic-1.8.2-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:05ddfd37c1720c392f4e0d43c484217b7521558302e7069ce8d318438d297739"},
-    {file = "pydantic-1.8.2-cp36-cp36m-manylinux1_i686.whl", hash = "sha256:a7c6002203fe2c5a1b5cbb141bb85060cbff88c2d78eccbc72d97eb7022c43e4"},
-    {file = "pydantic-1.8.2-cp36-cp36m-manylinux2014_i686.whl", hash = "sha256:589eb6cd6361e8ac341db97602eb7f354551482368a37f4fd086c0733548308e"},
-    {file = "pydantic-1.8.2-cp36-cp36m-manylinux2014_x86_64.whl", hash = "sha256:10e5622224245941efc193ad1d159887872776df7a8fd592ed746aa25d071840"},
-    {file = "pydantic-1.8.2-cp36-cp36m-win_amd64.whl", hash = "sha256:99a9fc39470010c45c161a1dc584997f1feb13f689ecf645f59bb4ba623e586b"},
-    {file = "pydantic-1.8.2-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:a83db7205f60c6a86f2c44a61791d993dff4b73135df1973ecd9eed5ea0bda20"},
-    {file = "pydantic-1.8.2-cp37-cp37m-manylinux1_i686.whl", hash = "sha256:41b542c0b3c42dc17da70554bc6f38cbc30d7066d2c2815a94499b5684582ecb"},
-    {file = "pydantic-1.8.2-cp37-cp37m-manylinux2014_i686.whl", hash = "sha256:ea5cb40a3b23b3265f6325727ddfc45141b08ed665458be8c6285e7b85bd73a1"},
-    {file = "pydantic-1.8.2-cp37-cp37m-manylinux2014_x86_64.whl", hash = "sha256:18b5ea242dd3e62dbf89b2b0ec9ba6c7b5abaf6af85b95a97b00279f65845a23"},
-    {file = "pydantic-1.8.2-cp37-cp37m-win_amd64.whl", hash = "sha256:234a6c19f1c14e25e362cb05c68afb7f183eb931dd3cd4605eafff055ebbf287"},
-    {file = "pydantic-1.8.2-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:021ea0e4133e8c824775a0cfe098677acf6fa5a3cbf9206a376eed3fc09302cd"},
-    {file = "pydantic-1.8.2-cp38-cp38-manylinux1_i686.whl", hash = "sha256:e710876437bc07bd414ff453ac8ec63d219e7690128d925c6e82889d674bb505"},
-    {file = "pydantic-1.8.2-cp38-cp38-manylinux2014_i686.whl", hash = "sha256:ac8eed4ca3bd3aadc58a13c2aa93cd8a884bcf21cb019f8cfecaae3b6ce3746e"},
-    {file = "pydantic-1.8.2-cp38-cp38-manylinux2014_x86_64.whl", hash = "sha256:4a03cbbe743e9c7247ceae6f0d8898f7a64bb65800a45cbdc52d65e370570820"},
-    {file = "pydantic-1.8.2-cp38-cp38-win_amd64.whl", hash = "sha256:8621559dcf5afacf0069ed194278f35c255dc1a1385c28b32dd6c110fd6531b3"},
-    {file = "pydantic-1.8.2-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:8b223557f9510cf0bfd8b01316bf6dd281cf41826607eada99662f5e4963f316"},
-    {file = "pydantic-1.8.2-cp39-cp39-manylinux1_i686.whl", hash = "sha256:244ad78eeb388a43b0c927e74d3af78008e944074b7d0f4f696ddd5b2af43c62"},
-    {file = "pydantic-1.8.2-cp39-cp39-manylinux2014_i686.whl", hash = "sha256:05ef5246a7ffd2ce12a619cbb29f3307b7c4509307b1b49f456657b43529dc6f"},
-    {file = "pydantic-1.8.2-cp39-cp39-manylinux2014_x86_64.whl", hash = "sha256:54cd5121383f4a461ff7644c7ca20c0419d58052db70d8791eacbbe31528916b"},
-    {file = "pydantic-1.8.2-cp39-cp39-win_amd64.whl", hash = "sha256:4be75bebf676a5f0f87937c6ddb061fa39cbea067240d98e298508c1bda6f3f3"},
-    {file = "pydantic-1.8.2-py3-none-any.whl", hash = "sha256:fec866a0b59f372b7e776f2d7308511784dace622e0992a0b59ea3ccee0ae833"},
-    {file = "pydantic-1.8.2.tar.gz", hash = "sha256:26464e57ccaafe72b7ad156fdaa4e9b9ef051f69e175dbbb463283000c05ab7b"},
-]
 pyflakes = [
     {file = "pyflakes-2.3.1-py2.py3-none-any.whl", hash = "sha256:7893783d01b8a89811dd72d7dfd4d84ff098e5eed95cfa8905b22bbffe52efc3"},
     {file = "pyflakes-2.3.1.tar.gz", hash = "sha256:f5bc8ecabc05bb9d291eb5203d6810b49040f6ff446a756326104746cc00c1db"},
@@ -1140,9 +1109,13 @@ tomli = [
     {file = "tomli-1.2.3-py3-none-any.whl", hash = "sha256:e3069e4be3ead9668e21cb9b074cd948f7b3113fd9c8bba083f48247aab8b11c"},
     {file = "tomli-1.2.3.tar.gz", hash = "sha256:05b6166bff487dc068d322585c7ea4ef78deed501cc124060e0f238e89a9231f"},
 ]
+tomlkit = [
+    {file = "tomlkit-0.8.0-py3-none-any.whl", hash = "sha256:b824e3466f1d475b2b5f1c392954c6cb7ea04d64354ff7300dc7c14257dc85db"},
+    {file = "tomlkit-0.8.0.tar.gz", hash = "sha256:29e84a855712dfe0e88a48f6d05c21118dbafb283bb2eed614d46f80deb8e9a1"},
+]
 tortoise-orm = [
-    {file = "tortoise-orm-0.18.0.tar.gz", hash = "sha256:52c33b712279ba8b04f5a1bed3010ade4961f0200480df5362cf674486a9016a"},
-    {file = "tortoise_orm-0.18.0-py3-none-any.whl", hash = "sha256:1f5422a94b2d58f61b91bf8993b678533554abdebdadf783ba0c484122fb63c1"},
+    {file = "tortoise-orm-0.17.8.tar.gz", hash = "sha256:1f5020e9964d32a4d6ed685d466b5d7285de328a63ee92ee988c1e4baf8fefbf"},
+    {file = "tortoise_orm-0.17.8-py3-none-any.whl", hash = "sha256:f18c41bb83be4748a6ca259ed7309ca954b35f5790971824bbc79a11d2b1ef3b"},
 ]
 typed-ast = [
     {file = "typed_ast-1.5.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:5d8314c92414ce7481eee7ad42b353943679cf6f30237b5ecbf7d835519e1212"},

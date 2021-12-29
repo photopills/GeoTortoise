@@ -54,11 +54,14 @@ class GeometryField(Field):
     def __init__(
         self,
         srid: int = None,
-        spatial_index: bool = True,
         **kwargs: Any,
     ) -> None:
         self.srid = srid
-        self.spatial_index = spatial_index
+        index = kwargs.pop("index", None)
+        # TODO: Improve error about not support index=True
+        if index is not None:
+            raise AttributeError("Create index using index=True is not supported. Set indexes inside `class Meta:`")
+
         super().__init__(**kwargs)
 
     def to_db_value(
@@ -72,8 +75,10 @@ class GeometryField(Field):
         if not isinstance(value, BaseGeometry):
             try:
                 value = shapely.wkt.loads(value)
-            except WKTReadingError:    
-                raise FieldError("The value to be saved must be a Shapely geometry or a WKT geometry.")
+            except WKTReadingError:
+                raise FieldError(
+                    "The value to be saved must be a Shapely geometry or a WKT geometry."
+                )
         value = validate_coordinates(value)
         return shapely.wkb.dumps(value, hex=True, srid=self.srid)
 

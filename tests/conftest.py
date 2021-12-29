@@ -15,6 +15,7 @@ def db_handler(func_test):
                 db_url=DB_URL,
                 modules={"models": TEST_MODELS},
             )
+            await Tortoise.generate_schemas()
             # call the test function
             await func_test()
         finally:

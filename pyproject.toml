@@ -6,8 +6,8 @@ authors = ["PhotoPills Team <it@photopills.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-Shapely = "^1.7.1"
-asyncpg = "^0.22.0"
+Shapely = "^1.8.0"
+asyncpg = "^0.25.0"
 tortoise-orm = "=<0.18.1"
 
 [tool.poetry.dev-dependencies]

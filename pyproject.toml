@@ -5,7 +5,7 @@ description = "Tortoise-orm with geospatial operations "
 authors = ["PhotoPills Team <it@photopills.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = ">=3.7,<4.0"
 Shapely = "^1.8.0"
 asyncpg = "^0.25.0"
 tortoise-orm = "=<0.18.1"

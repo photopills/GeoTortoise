@@ -166,3 +166,24 @@ class ST_ClosestPoint(ComparesGeometryLike):
     """Calculates the point on the first GeometryLike that is closes to the 2nd."""
 
     name = "ST_ClosestPoint"
+
+
+# ====================
+# Aggregate geospatial functions
+# ====================
+
+
+class AggregateGeometry(Function):
+    name = None
+
+    def __init__(
+        self,
+        g1: Optional[GeometryLike] = None,
+        arg1: Union[float, int] = None,
+        arg2: int = None,
+        g1_srid=None,
+        **kwargs
+    ):
+        g1 = convert_to_db_value(g1, g1_srid)
+
+        super().__init__(self.name, g1, arg1, arg2, **kwargs)

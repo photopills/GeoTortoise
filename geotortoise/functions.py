@@ -1,5 +1,5 @@
 from itertools import chain
-from typing import Optional, Union
+from typing import Any, Optional, Union
 
 from pypika import Field as PyPikaField
 from shapely.geometry.base import BaseGeometry
@@ -187,3 +187,38 @@ class AggregateGeometry(Function):
         g1 = convert_to_db_value(g1, g1_srid)
 
         super().__init__(self.name, g1, arg1, arg2, **kwargs)
+
+
+class ST_ClusterDBSCAN(AggregateGeometry):
+    name = "ST_ClusterDBSCAN"
+
+    def __init__(
+        self,
+        geom: Optional[GeometryLike] = None,
+        elements_distance: float = None,
+        cluster_min_elements: int = None,
+        g1_srid=None,
+        **kwargs
+    ):
+        """
+        elements_distance: value is in degrees related to the CRS in use.
+
+        For example for CRS 4326:
+            - 1 degree of latitude corresponds to 111km
+            - 1 degree of longitude corresponds to 73km
+
+        """
+
+        super().__init__(
+            geom, elements_distance, cluster_min_elements, g1_srid, **kwargs
+        )
+
+    def get_function_sql(self, **kwargs: Any) -> str:
+        special_params_sql = self.get_special_params_sql(**kwargs)
+        # REVIEW: Currently the `OVER()` that is necessary to run ST_ClusterDBSCAN is hardcoded
+        # If needed in future we can create a Over function or request it from tortoise-orm
+        return "{name}({args}{special}) OVER()".format(
+            name=self.name,
+            args=",".join(self.get_arg_sql(arg, **kwargs) for arg in self.args),
+            special=(" " + special_params_sql) if special_params_sql else "",
+        )

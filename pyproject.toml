@@ -1,17 +1,18 @@
 [tool.poetry]
 name = "geotortoise"
-version = "0.1.4"
-description = "Tortoise-orm with geospatial operations "
+version = "0.1.5"
+description = "Tortoise-ORM with geospatial support"
 authors = ["PhotoPills Team <it@photopills.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.7,<4.0"
-Shapely = "^1.8.0"
-asyncpg = "^0.25.0"
+Shapely = "^2.0.1"
+asyncpg = "^0.27.0"
 tortoise-orm = ">=0.18.1"
+pytest = "^7.2.2"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
+pytest = "^7.2.2"
 asynctest = "^0.13.0"
 black = "^21.4b0"
 flake8 = "^3.9.1"

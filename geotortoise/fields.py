@@ -2,7 +2,7 @@ from typing import Any, Type, Union
 
 import shapely.wkb
 import shapely.wkt
-from shapely.errors import WKBReadingError, WKTReadingError
+from shapely.errors import ShapelyError
 from shapely.geometry import Point, Polygon
 from shapely.geometry.base import BaseGeometry
 from tortoise import ConfigurationError, Model
@@ -60,7 +60,9 @@ class GeometryField(Field):
         index = kwargs.pop("index", None)
         # TODO: Improve error about not support index=True
         if index is not None:
-            raise AttributeError("Create index using index=True is not supported. Set indexes inside `class Meta:`")
+            raise AttributeError(
+                "Create index using index=True is not supported. Set indexes inside `class Meta:`"
+            )
 
         super().__init__(**kwargs)
 
@@ -75,11 +77,11 @@ class GeometryField(Field):
         if not isinstance(value, BaseGeometry):
             try:
                 value = shapely.wkt.loads(value)
-            except WKTReadingError:
+            except ShapelyError:
                 raise FieldError(
                     "The value to be saved must be a Shapely geometry or a WKT geometry."
                 )
-        value = validate_coordinates(value)
+
         return shapely.wkb.dumps(value, hex=True, srid=self.srid)
 
     def to_python_value(self, value: Any) -> BaseGeometry:
@@ -92,21 +94,23 @@ class GeometryField(Field):
         if isinstance(value, bytes):
             try:
                 return shapely.wkb.loads(value)
-            except WKBReadingError as exc:
+            except ShapelyError as exc:
                 raise OperationalError("Could not parse the provided data.") from exc
 
+        exc_hex = None
         try:
             int(value, 16)  # Prevents "ParseException: Invalid HEX char."
             return shapely.wkb.loads(value, hex=True)
-        except (ValueError, WKBReadingError):
-            pass
+        except (ValueError, ShapelyError) as exc:
+            exc_hex = exc
 
         try:
             return shapely.wkt.loads(value)
-        except WKTReadingError:
-            pass
-
-        raise OperationalError("Could not parse the provided data.")
+        except ShapelyError as exc:
+            msg = "Could not parse the provided data."
+            if exc_hex:
+                msg += f"Failed parsing due {exc_hex}"
+            raise OperationalError(msg) from exc
 
     def get_sql(self, quote_char="", *args, **kwargs):
         return quote_char + self.model_field_name + quote_char

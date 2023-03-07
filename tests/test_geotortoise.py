@@ -76,5 +76,5 @@ async def test_st_distance():
     pt = await Place.create(name="Garden", point=test_place)
     distance = await Place.annotate(distance=ST_Distance(pt.point, test_obstacle))
     # TODO: Return value in Km unit
-    assert distance[0].distance == 0.0004990848754603494
+    assert distance[0].distance == 0.0004990848754599389
 

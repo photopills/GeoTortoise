@@ -19,7 +19,7 @@ class Place(Model):
 # ====================
 TEST_MODELS = ["tests.models", "aerich.models"]
 
-DB_HOST = "172.18.0.2"
+DB_HOST = "0.0.0.0"
 DB_URL = f"postgres://geo:geo@{DB_HOST}:5432/geo"
 
 TORTOISE_ORM = {

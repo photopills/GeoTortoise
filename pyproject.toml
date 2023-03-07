@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "geotortoise"
-version = "0.1.5"
+version = "0.2.0"
 description = "Tortoise-ORM with geospatial support"
 authors = ["PhotoPills Team <it@photopills.com>"]
 

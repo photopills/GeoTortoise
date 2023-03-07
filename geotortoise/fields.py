@@ -9,8 +9,6 @@ from tortoise import ConfigurationError, Model
 from tortoise.exceptions import FieldError, OperationalError
 from tortoise.fields import Field
 
-from geotortoise.utils import validate_coordinates
-
 from .functions import AsText
 
 

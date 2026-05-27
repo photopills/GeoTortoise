@@ -4,8 +4,8 @@ Implements arbitrary SQL functions using getattr.
 Inspired by the SQLAlchemy function implementation.
 """
 from typing import Callable, Union
-from pypika.functions import Function as PyPikaFunction
-from pypika.terms import Criterion, Field, Parameter
+from pypika_tortoise.functions import Function as PyPikaFunction
+from pypika_tortoise.terms import Criterion, Field, Parameter
 from tortoise.expressions import Q
 from tortoise.query_utils import QueryModifier
 

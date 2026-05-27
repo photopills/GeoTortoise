@@ -1,7 +1,7 @@
 from itertools import chain
 from typing import Any, Optional, Union
 
-from pypika import Field as PyPikaField
+from pypika_tortoise import Field as PyPikaField
 from shapely.geometry.base import BaseGeometry
 from tortoise.fields import Field
 

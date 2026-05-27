@@ -9,14 +9,16 @@ python = ">=3.11,<3.15"
 Shapely = ">=2.0.1"
 tortoise-orm = ">=0.18.1"
 asyncpg = ">=0.29.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=9.0.3"
+pytest-aiohttp = ">=0.3.0"
 asynctest = ">=0.13.0"
 black = ">=21.4b0"
 flake8 = ">=3.9.1"
 pre-commit = ">=2.12.1"
 isort = ">=5.8.0"
-pytest-aiohttp = ">=0.3.0"
 aerich = ">=0.6.1"
-pytest = ">=9.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
